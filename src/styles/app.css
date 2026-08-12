@@ -112,6 +112,16 @@
   border-top: 1px solid var(--border-subtle);
 }
 
+.sidebar-foot-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.sidebar-foot-actions .btn {
+  width: 100%;
+}
+
 .main {
   display: flex;
   flex-direction: column;

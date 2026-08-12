@@ -1,5 +1,10 @@
+import { useRef, type ChangeEvent } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { useDashboard } from '../context/DashboardContext';
+import {
+  parseDashboardImport,
+  serializeDashboard,
+} from '../lib/storage';
 
 const nav = [
   { to: '/', label: 'Overview', index: '01', end: true },
@@ -18,10 +23,57 @@ function titleForPath(pathname: string): string {
   return 'Overview';
 }
 
+function downloadJson(filename: string, content: string) {
+  const blob = new Blob([content], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement('a');
+  anchor.href = url;
+  anchor.download = filename;
+  anchor.click();
+  URL.revokeObjectURL(url);
+}
+
 export function AppShell() {
   const location = useLocation();
-  const { resetToSeed, clients } = useDashboard();
+  const { data, clients, replaceAll, resetToSeed } = useDashboard();
   const title = titleForPath(location.pathname);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleExport = () => {
+    const stamp = new Date().toISOString().slice(0, 10);
+    downloadJson(
+      `neuroweb-dashboard-${stamp}.json`,
+      serializeDashboard(data),
+    );
+  };
+
+  const handleImportClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleImportFile = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    event.target.value = '';
+    if (!file) return;
+
+    try {
+      const text = await file.text();
+      const imported = parseDashboardImport(text);
+      const summary = `${imported.clients.length} clients, ${imported.projects.length} projects, ${imported.activities.length} activities`;
+      if (
+        !window.confirm(
+          `Replace all local data with this export?\n\n${summary}`,
+        )
+      ) {
+        return;
+      }
+      replaceAll(imported);
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : 'Could not import file';
+      window.alert(message);
+    }
+  };
 
   return (
     <div className="app-shell">
@@ -60,6 +112,29 @@ export function AppShell() {
 
         <div className="sidebar-foot">
           <div className="mono-label">{clients.length} clients stored</div>
+          <div className="sidebar-foot-actions">
+            <button
+              type="button"
+              className="btn btn-quiet"
+              onClick={handleExport}
+            >
+              Export
+            </button>
+            <button
+              type="button"
+              className="btn btn-quiet"
+              onClick={handleImportClick}
+            >
+              Import
+            </button>
+          </div>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="application/json,.json"
+            hidden
+            onChange={handleImportFile}
+          />
           <button
             type="button"
             className="btn btn-quiet"

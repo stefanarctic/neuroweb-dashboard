@@ -31,6 +31,24 @@ function normalizeProjects(projects: Project[]): Project[] {
   }));
 }
 
+function normalizeDashboard(data: DashboardData): DashboardData {
+  return {
+    clients: normalizeClients(data.clients ?? []),
+    projects: normalizeProjects(data.projects ?? []),
+    activities: data.activities ?? [],
+  };
+}
+
+function isDashboardShape(value: unknown): value is DashboardData {
+  if (!value || typeof value !== 'object') return false;
+  const candidate = value as Partial<DashboardData>;
+  return (
+    Array.isArray(candidate.clients) &&
+    Array.isArray(candidate.projects) &&
+    Array.isArray(candidate.activities)
+  );
+}
+
 export function loadDashboard(): DashboardData {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -40,11 +58,7 @@ export function loadDashboard(): DashboardData {
       return data;
     }
     const parsed = JSON.parse(raw) as DashboardData;
-    const data: DashboardData = {
-      clients: normalizeClients(parsed.clients ?? []),
-      projects: normalizeProjects(parsed.projects ?? []),
-      activities: parsed.activities ?? [],
-    };
+    const data = normalizeDashboard(parsed);
     saveDashboard(data);
     return data;
   } catch {
@@ -66,4 +80,40 @@ export function resetDashboard(): DashboardData {
 
 export function clearDashboard(): DashboardData {
   return resetDashboard();
+}
+
+export function serializeDashboard(data: DashboardData): string {
+  return JSON.stringify(data, null, 2);
+}
+
+/** Parse a dashboard JSON export (raw DashboardData or `{ data: DashboardData }`). */
+export function parseDashboardImport(raw: string): DashboardData {
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(raw);
+  } catch {
+    throw new Error('File is not valid JSON');
+  }
+
+  const wrapped =
+    parsed &&
+    typeof parsed === 'object' &&
+    'data' in parsed &&
+    isDashboardShape((parsed as { data: unknown }).data)
+      ? (parsed as { data: DashboardData }).data
+      : parsed;
+
+  if (!isDashboardShape(wrapped)) {
+    throw new Error(
+      'Invalid export: expected clients, projects, and activities arrays',
+    );
+  }
+
+  return normalizeDashboard(wrapped);
+}
+
+export function replaceDashboard(data: DashboardData): DashboardData {
+  const normalized = normalizeDashboard(data);
+  saveDashboard(normalized);
+  return normalized;
 }

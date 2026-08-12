@@ -7,7 +7,12 @@ import {
   type ReactNode,
 } from 'react';
 import { createId } from '../lib/id';
-import { loadDashboard, resetDashboard, saveDashboard } from '../lib/storage';
+import {
+  loadDashboard,
+  replaceDashboard,
+  resetDashboard,
+  saveDashboard,
+} from '../lib/storage';
 import type {
   Activity,
   ActivityType,
@@ -46,6 +51,7 @@ interface DashboardContextValue {
     type: ActivityType,
     body: string,
   ) => Activity;
+  replaceAll: (data: DashboardData) => void;
   resetToSeed: () => void;
 }
 
@@ -214,6 +220,10 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
     [update],
   );
 
+  const replaceAll = useCallback((next: DashboardData) => {
+    setData(replaceDashboard(next));
+  }, []);
+
   const resetToSeed = useCallback(() => {
     setData(resetDashboard());
   }, []);
@@ -235,6 +245,7 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
       upsertProject,
       deleteProject,
       addActivity,
+      replaceAll,
       resetToSeed,
     }),
     [
@@ -250,6 +261,7 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
       upsertProject,
       deleteProject,
       addActivity,
+      replaceAll,
       resetToSeed,
     ],
   );
