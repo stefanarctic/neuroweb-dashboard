@@ -1,0 +1,194 @@
+:root {
+  /* --- Base: ink (blacks) --- */
+  --ink-1000: #000205;
+  --ink-950: #04070a;
+  --ink-900: #070b10;
+  --ink-800: #0b1117;
+  --ink-700: #101922;
+  --ink-600: #16222d;
+  --ink-500: #1e2e3b;
+  --ink-400: #2a3d4d;
+  --ink-300: #3d5567;
+  --ink-200: #5b7488;
+  --ink-100: #8ea6b8;
+  --ink-050: #c6d6e1;
+  --ink-000: #eef6fb;
+
+  /* --- Base: cyan (primary) --- */
+  --cyan-050: #e8feff;
+  --cyan-100: #b5f7ff;
+  --cyan-200: #7cefff;
+  --cyan-300: #3ee3fb;
+  --cyan-400: #14d3ee;
+  --cyan-500: #06b6d4;
+  --cyan-600: #0693ad;
+  --cyan-700: #0a7289;
+  --cyan-800: #0b5265;
+  --cyan-900: #093644;
+
+  /* --- Base: signal accents (used sparingly) --- */
+  --magenta-400: #ff3d9a;
+  --magenta-600: #b3175f;
+  --amber-400: #ffb020;
+  --lime-400: #9ff531;
+  --red-400: #ff4d4d;
+  --red-600: #b31d1d;
+
+  /* --- Semantic: surfaces --- */
+  --surface-void: var(--ink-1000);
+  --surface-base: var(--ink-950);
+  --surface-raised: var(--ink-900);
+  --surface-card: var(--ink-800);
+  --surface-inset: var(--ink-1000);
+  --surface-overlay: rgba(4, 7, 10, 0.82);
+  --surface-hover: rgba(20, 211, 238, 0.06);
+  --surface-active: rgba(20, 211, 238, 0.12);
+  --surface-selected: rgba(20, 211, 238, 0.10);
+
+  /* --- Semantic: text --- */
+  --text-primary: var(--ink-000);
+  --text-body: var(--ink-050);
+  --text-muted: var(--ink-100);
+  --text-faint: var(--ink-200);
+  --text-accent: var(--cyan-300);
+  --text-on-accent: var(--ink-1000);
+  --text-danger: var(--red-400);
+
+  /* --- Semantic: lines --- */
+  --border-subtle: rgba(94, 122, 143, 0.18);
+  --border-default: rgba(94, 122, 143, 0.30);
+  --border-strong: rgba(20, 211, 238, 0.38);
+  --border-accent: var(--cyan-400);
+  --grid-line: rgba(20, 211, 238, 0.07);
+  --scanline: rgba(20, 211, 238, 0.045);
+
+  /* --- Semantic: interactive --- */
+  --accent: var(--cyan-400);
+  --accent-hover: var(--cyan-300);
+  --accent-press: var(--cyan-500);
+  --accent-dim: var(--cyan-800);
+  --focus-ring: var(--cyan-300);
+
+  /* --- Semantic: status --- */
+  --status-online: var(--cyan-300);
+  --status-warn: var(--amber-400);
+  --status-danger: var(--red-400);
+  --status-alert: var(--magenta-400);
+  --status-ok: var(--lime-400);
+}
+
+:root {
+  --font-display: "Chakra Petch", "Eurostile", sans-serif;
+  --font-body: "IBM Plex Sans", "Helvetica Neue", Helvetica, sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+
+  --text-display-lg: 64px;
+  --text-display: 44px;
+  --text-h1: 32px;
+  --text-h2: 24px;
+  --text-h3: 18px;
+  --text-body-lg: 16px;
+  --text-body-md: 14px;
+  --text-body-sm: 13px;
+  --text-caption: 12px;
+  --text-micro: 10px;
+
+  --leading-tight: 1.05;
+  --leading-snug: 1.25;
+  --leading-normal: 1.55;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  --tracking-display: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.06em;
+  --tracking-label: 0.14em;
+  --tracking-micro: 0.22em;
+}
+
+:root {
+  --space-0: 0px;
+  --space-1: 2px;
+  --space-2: 4px;
+  --space-3: 8px;
+  --space-4: 12px;
+  --space-5: 16px;
+  --space-6: 20px;
+  --space-7: 24px;
+  --space-8: 32px;
+  --space-9: 40px;
+  --space-10: 56px;
+  --space-11: 72px;
+  --space-12: 96px;
+
+  --radius-none: 0px;
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: 4px;
+  --radius-pill: 999px;
+  --bevel: 10px; /* clip-path corner cut size */
+
+  --control-sm: 28px;
+  --control-md: 36px;
+  --control-lg: 44px;
+
+  --border-hair: 1px;
+  --border-thick: 2px;
+
+  --container-max: 1440px;
+  --gutter: var(--space-7);
+}
+
+:root {
+  --glow-accent-sm: 0 0 0 1px rgba(20, 211, 238, 0.35), 0 0 12px rgba(20, 211, 238, 0.18);
+  --glow-accent-md: 0 0 0 1px rgba(20, 211, 238, 0.55), 0 0 22px rgba(20, 211, 238, 0.28);
+  --glow-accent-lg: 0 0 34px rgba(20, 211, 238, 0.42);
+  --glow-text: 0 0 14px rgba(20, 211, 238, 0.55);
+  --glow-danger: 0 0 0 1px rgba(255, 77, 77, 0.5), 0 0 18px rgba(255, 77, 77, 0.25);
+
+  --shadow-drop: 0 18px 40px rgba(0, 2, 5, 0.65);
+  --shadow-panel: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 1px 0 rgba(0, 0, 0, 0.6);
+  --shadow-inset: inset 0 0 0 1px rgba(94, 122, 143, 0.18), inset 0 2px 12px rgba(0, 0, 0, 0.6);
+
+  --blur-overlay: blur(10px) saturate(120%);
+
+  --grid-bg: linear-gradient(rgba(20, 211, 238, 0.07) 1px, transparent 1px) 0 0 / 100% 32px,
+             linear-gradient(90deg, rgba(20, 211, 238, 0.07) 1px, transparent 1px) 0 0 / 32px 100%;
+  --scanline-bg: repeating-linear-gradient(180deg, rgba(20, 211, 238, 0.045) 0 1px, transparent 1px 3px);
+  --hazard-bg: repeating-linear-gradient(135deg, rgba(255, 176, 32, 0.5) 0 8px, transparent 8px 16px);
+}
+
+:root {
+  --dur-instant: 60ms;
+  --dur-fast: 120ms;
+  --dur-base: 180ms;
+  --dur-slow: 320ms;
+  --dur-boot: 700ms;
+
+  --ease-snap: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-step: steps(6, end);
+}
+
+@keyframes nw-flicker {
+  0%, 100% { opacity: 1; }
+  92% { opacity: 1; }
+  93% { opacity: 0.45; }
+  94% { opacity: 1; }
+  97% { opacity: 0.7; }
+}
+@keyframes nw-scan {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(100%); }
+}
+@keyframes nw-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+@keyframes nw-sweep {
+  from { background-position: -200% 0; }
+  to { background-position: 200% 0; }
+}
